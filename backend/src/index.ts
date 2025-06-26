@@ -6,7 +6,7 @@ import { sign } from 'hono/jwt'
 const app = new Hono<{
 	Bindings: {
 		DATABASE_URL: string,
-    JWT_SECRET: string
+    // JWT_SECRET: string
 	}
 }>();
 
@@ -24,7 +24,7 @@ app.post('/api/v1/signup', async (c) => {
     }
   })
 
-  const token = sign({ id: user.id }, c.env.JWT_SECRET )
+  const token = await sign({ id: user.id }, "secret" )
   return c.json({
     jwt : token
   })
