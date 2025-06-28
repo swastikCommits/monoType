@@ -3,6 +3,7 @@ import { Prisma, PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign, verify } from 'hono/jwt'
 
+
 export const userRouter = new Hono<{
 	Bindings: {
 		DATABASE_URL: string,
@@ -10,14 +11,23 @@ export const userRouter = new Hono<{
 	}
 }>();
 
+
+
 userRouter.post('/signup', async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate())
-  
-  //zod, bcrypt
 
   const body = await c.req.json();
+  const { success } = signupInput.safeParse(body);
+  if(!success){
+    c.status(411);
+    return c.json({
+      msg : "Inputs are incorrect"
+    })
+  }
+
+  // Todo: bcrpyt
   
   try {
      const user = await prisma.user.create({
@@ -66,3 +76,5 @@ userRouter.post('/signin', async (c) => {
     return c.text('Invalid')
   }
 })
+
+export default userRouter

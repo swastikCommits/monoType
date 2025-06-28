@@ -14,20 +14,25 @@ export const blogRouter = new Hono<{
 }>();
 
 blogRouter.use("/*", async (c, next) => {
-
-    const authHeader = c.req.header("authorization") || "";
-    const token = authHeader.split(" ")[1];
-    const user = await verify(token, c.env.JWT_SECRET);
-    if (user){
-       c.set("userId", String(user.id));
-        await next();
-    } else{
-        c.status(403);
-        return c.json({
+    try{
+        const authHeader = c.req.header("authorization") || "";
+        const token = authHeader.split(" ")[1];
+        const user = await verify(token, c.env.JWT_SECRET);
+        if (user){
+        c.set("userId", String(user.id));
+            await next();
+        } else{
+            c.status(403);
+            return c.json({
             msg: "You are not logged in"
         })
     }
-
+    } catch(e){
+        c.status(403);
+        return c.json({
+            "msg" : "you are not logged in"
+        })
+    }
 })
 
 
@@ -97,8 +102,8 @@ blogRouter.get('/:id', async (c) => {
 
   try{
     const post = await prisma.post.findFirst({
-        where :{
-        id: id
+        where : {
+            id: id
         }
     })
     return c.json({
@@ -112,3 +117,4 @@ blogRouter.get('/:id', async (c) => {
 })
 
 
+export default blogRouter
