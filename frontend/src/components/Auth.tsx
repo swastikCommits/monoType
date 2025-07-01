@@ -50,6 +50,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     </div>
 }
 
+
 interface LabelledInputType {
     label: string;
     placeholder: string;
