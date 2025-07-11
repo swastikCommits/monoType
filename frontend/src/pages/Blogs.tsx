@@ -1,7 +1,9 @@
 import { BlogCard } from "../components/BlogCard";
-
+import { Appbar } from "../components/Appbar";
 export const Blogs = () =>{
-    return <div className="flex justify-center">
+    return <div>
+    <Appbar/>
+    <div className="flex justify-center">
         <div className = "max-w-xl">
             <BlogCard 
             authorName="John Doe"
@@ -25,6 +27,6 @@ export const Blogs = () =>{
             id={1}
             />
         </div>
-        
+        </div>
     </div>
 }
