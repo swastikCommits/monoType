@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import type { SignupInput }  from "@daddyonyx/monotype-common";
 
 
-export const Auth = ({ type }: { type: "signup" | "signin" }) => {
+export const Auth = ({ type } : { type: "signup" | "signin" }) => {
     const [postInputs, setPostInputs] = useState<SignupInput>({
         email: "",
         password: ""
-    });
+    });  
     
     return <div className="h-screen flex justify-center flex-col">
         <div className="flex justify-center">
@@ -25,13 +25,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                     </div>
                 </div>
                 <div className="pt-8">
-                    {type === "signup" ? <LabelledInput label="Name" placeholder="Harkirat Singh..." onChange={(e) => {
-                        setPostInputs({
-                            ...postInputs,
-                            email: e.target.value
-                        })
-                    }} /> : null}
-                    <LabelledInput label="Username" placeholder="harkirat@gmail.com" onChange={(e) => {
+                    <LabelledInput label="Email" placeholder="blabla@gmail.com" onChange={(e) => {
                         setPostInputs({
                             ...postInputs,
                             email: e.target.value
