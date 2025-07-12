@@ -34,8 +34,8 @@ const blogs = await prisma.post.findMany({
 });
 
 return c.json({
- blogs
-}) 
+  blogs
+  }) 
 })
 
 blogRouter.use("/*", async (c, next) => {

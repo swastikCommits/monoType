@@ -19,10 +19,13 @@ export const Blog = () => {
                 
                 <div className="flex justify-center">
                     <Spinner />
+                    
                 </div>
+                
             </div>
         </div>
     }
+
     return <div>
         <FullBlog blog={blog} />
     </div>
